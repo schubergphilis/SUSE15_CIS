@@ -1,0 +1,16 @@
+---
+language: python
+python: "3.7"
+services: docker
+# Use the new container infrastructure
+sudo: false
+
+install:
+- pip install pipenv
+- make clean
+
+script:
+- make test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

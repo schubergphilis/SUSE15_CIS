@@ -1,0 +1,20 @@
+# this molecule testing configuration is designed to work with opensuse/leap:15.2, which
+# is a container which does not come with python, does not run systemd etc.
+# To speed up development, a local container called 'devimage' can be created
+# to bypass these molecule converge steps.
+
+- name: MOLECULE | Converge
+  hosts: all
+  # we need to first install python3, so first skip the setup phase
+  # gather_facts: false
+  vars:
+    dockerimage: "{{ lookup('env', 'DOCKER_IMAGE') }}"
+    suse15cis_development: false
+
+  tasks:
+
+  - name: MOLECULE | Include role SUSE15-CIS
+    include_role:
+      name: SUSE15-CIS
+    tags:
+    - always

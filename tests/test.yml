@@ -1,0 +1,5 @@
+- hosts: localhost
+  # groups: docker
+  remote_user: root
+  roles:
+  - SUSE15-CIS

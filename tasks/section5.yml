@@ -1,0 +1,693 @@
+- name: SCORED | 5.1.1 | PATCH | Ensure cron daemon is enabled
+  package:
+    name: cron
+    state: present
+  when:
+  - suse15cis_rule_5_1_1
+
+  tags:
+  - level1
+  - patch
+  - rule_5.1.1
+
+- name: SCORED | 5.1.1 | PATCH | Ensure cron daemon is enabled
+  service:
+    name: cron
+    enabled: yes
+  when:
+  - suse15cis_rule_5_1_1
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.1
+
+- name: SCORED | 5.1.2 | PATCH | Ensure permissions on /etc/crontab are configured
+  file:
+    dest: /etc/crontab
+    owner: root
+    group: root
+    mode: 0600
+  when:
+  - suse15cis_rule_5_1_2
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.2
+
+- name: SCORED | 5.1.3 | PATCH | Ensure permissions on /etc/cron.hourly are configured
+  file:
+    dest: /etc/cron.hourly
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when:
+  - suse15cis_rule_5_1_3
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.3
+
+- name: SCORED | 5.1.4 | PATCH | Ensure permissions on /etc/cron.daily are configured
+  file:
+    dest: /etc/cron.daily
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when:
+  - suse15cis_rule_5_1_4
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.4
+
+- name: SCORED | 5.1.5 | PATCH | Ensure permissions on /etc/cron.weekly are configured
+  file:
+    dest: /etc/cron.weekly
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when:
+  - suse15cis_rule_5_1_5
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.5
+
+- name: SCORED | 5.1.6 | PATCH | Ensure permissions on /etc/cron.monthly are configured
+  file:
+    dest: /etc/cron.monthly
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when:
+  - suse15cis_rule_5_1_6
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.6
+
+- name: SCORED | 5.1.7 | PATCH | Ensure permissions on /etc/cron.d are configured
+  file:
+    dest: /etc/cron.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when:
+  - suse15cis_rule_5_1_7
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.7
+
+- name: SCORED | 5.1.8 | PATCH | Ensure cron is restricted to authorized users
+  block:
+  - name: SCORED | 5.1.8 | PATCH | Ensure cron is restricted to authorized users
+    file:
+      dest: /etc/cron.deny
+      state: absent
+
+  - name: SCORED | 5.1.8 | PATCH | Check if cron.allow exists
+    stat:
+      path: /etc/cron.allow
+    register: p
+
+  - name: SCORED | 5.1.8 | PATCH | Ensure cron is restricted to authorized users
+    file:
+      dest: /etc/cron.allow
+      state: '{{ "file" if  p.stat.exists else "touch" }}'
+      owner: root
+      group: root
+      mode: 0600
+  when:
+  - suse15cis_rule_5_1_8
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.8
+
+
+- name: SCORED | 5.1.9 | PATCH | Ensure at is restricted to authorized users
+  block:
+  - name: SCORED | 5.1.9 | PATCH | Ensure at is restricted to authorized users
+    file:
+      dest: /etc/at.deny
+      state: absent
+
+  - name: SCORED | 5.1.9 | PATCH | Check if at.allow exists
+    stat:
+      path: /etc/at.allow
+    register: p
+
+  - name: SCORED | 5.1.9 | PATCH | Ensure at is restricted to authorized users
+    file:
+      dest: /etc/at.allow
+      state: '{{ "file" if  p.stat.exists else "touch" }}'
+      owner: root
+      group: root
+      mode: 0600
+  when:
+  - suse15cis_rule_5_1_9
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.1.9
+
+- name: SCORED | 5.2.1 | PATCH | Ensure permissions on /etc/ssh/sshd_config are configured
+  file:
+    dest: /etc/ssh/sshd_config
+    state: file
+    owner: root
+    group: root
+    mode: 0600
+  when:
+  - suse15cis_rule_5_2_1
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.1
+
+- name: NOTSCORED | 5.2.2| PATCH | Ensure permissions on SSH private host key files
+    are configured
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_2_2
+  tags:
+  - level1
+  - patch
+  - rule_5.2.2
+  - notimplemented
+
+
+- name: NOTSCORED | 5.2.3| PATCH | Ensure permissions on SSH private host key files
+    are configured
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_2_3
+  tags:
+  - level1
+  - patch
+  - rule_5.2.3
+  - notimplemented
+
+
+- name: SCORED | 5.2.4 | PATCH | Ensure SSH access is limited
+  block:
+  - name: SCORED | 5.2.4 | PATCH | Ensure SSH access is limited - allowusers
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: ^AllowUsers
+      line: AllowUsers {{ suse15cis_sshd['allowusers'] }}
+    notify:
+    - restart sshd
+    when:
+    - suse15cis_sshd['allowusers']|default('') != ''
+
+  - name: SCORED | 5.2.4 | PATCH | Ensure SSH access is limited - allowgroups
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: ^AllowGroups
+      line: AllowGroups {{ suse15cis_sshd['allowgroups'] }}
+    notify:
+    - restart sshd
+    when:
+    - suse15cis_sshd['allowgroups']|default('') != ''
+
+  - name: SCORED | 5.2.4 | PATCH | Ensure SSH access is limited - denyusers
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: ^DenyUsers
+      line: DenyUsers {{ suse15cis_sshd['denyusers'] }}
+    notify:
+    - restart sshd
+    when:
+    - suse15cis_sshd['denyusers']|default('') != ''
+
+  - name: SCORED | 5.2.4 | PATCH | Ensure SSH access is limited - denygroups
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: ^DenyGroups
+      line: DenyGroups {{ suse15cis_sshd['denygroups'] }}
+    notify:
+    - restart sshd
+    when:
+    - suse15cis_sshd['denygroups']|default('') != ''
+  when:
+  - suse15cis_rule_5_2_4
+  tags:
+  - level1
+  - patch
+  - rule_5.2.4
+
+
+- name: SCORED | 5.2.5 | PATCH | Ensure SSH LogLevel is appropriate
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^LogLevel
+    line: LogLevel INFO
+  when:
+  - suse15cis_rule_5_2_5
+  tags:
+  - level1
+  - patch
+  - rule_5.2.5
+
+- name: SCORED | 5.2.6 | PATCH | Ensure SSH X11 forwarding is disabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^X11Forwarding
+    line: X11Forwarding no
+  when:
+  - suse15cis_rule_5_2_6
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.6
+
+
+- name: SCORED | 5.2.7 | PATCH | Ensure SSH MaxAuthTries is set to 4 or less
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^(#)?MaxAuthTries \d
+    line: MaxAuthTries 4
+  when:
+  - suse15cis_rule_5_2_7
+  tags:
+  - level1
+  - patch
+  - rule_5.2.7
+
+
+- name: SCORED | 5.2.8 | PATCH | Ensure SSH IgnoreRhosts is enabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^IgnoreRhosts
+    line: IgnoreRhosts yes
+  when:
+  - suse15cis_rule_5_2_8
+  tags:
+  - level1
+  - patch
+  - rule_5.2.8
+
+- name: SCORED | 5.2.9 | PATCH | Ensure SSH HostbasedAuthentication is disabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^HostbasedAuthentication
+    line: HostbasedAuthentication no
+  when:
+  - suse15cis_rule_5_2_9
+  tags:
+  - level1
+  - patch
+  - rule_5.2.9
+
+- name: SCORED | 5.2.10 | PATCH | Ensure SSH root login is disabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^PermitRootLogin
+    line: PermitRootLogin no
+  when:
+  - suse15cis_rule_5_2_10
+  tags:
+  - level1
+  - patch
+  - rule_5.2.10
+
+- name: SCORED | 5.2.11 | PATCH | Ensure SSH PermitEmptyPasswords is disabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^PermitEmptyPasswords
+    line: PermitEmptyPasswords no
+  when:
+  - suse15cis_rule_5_2_11
+  tags:
+  - level1
+  - patch
+  - rule_5.2.11
+
+- name: SCORED | 5.2.12 | PATCH | Ensure SSH PermitUserEnvironment is disabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^PermitUserEnvironment
+    line: PermitUserEnvironment no
+  when:
+  - suse15cis_rule_5_2_12
+  tags:
+  - level1
+  - patch
+  - rule_5.2.12
+
+
+- name: SCORED | 5.2.13 | PATCH | Ensure only strong Ciphers are used
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^Ciphers
+    line: Ciphers {{ suse15cis_sshd['ciphers'] }}
+  when:
+  - suse15cis_rule_5_2_13
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.13
+
+- name: SCORED | 5.2.14 | PATCH | Ensure only approved MAC algorithms are used
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^MACs
+    line: MACs {{ suse15cis_sshd['macs'] }}
+  when:
+  - suse15cis_rule_5_2_14
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.14
+
+- name: NOTSCORED | 5.2.15| PATCH | Ensure only strong Key Exchange algorithms are
+    used
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_2_15
+  tags:
+  - level1
+  - patch
+  - rule_5_2_15
+  - notimplemented
+
+- name: SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured
+  block:
+  - name: SCORED | 5.2.16 | PATCH | Ensure SSH Idle Timeout Interval is configured
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: ^ClientAliveInterval
+      line: ClientAliveInterval {{ suse15cis_sshd['clientaliveinterval'] }}
+
+  - name: SCORED | 5.2.16 | PATCH | Ensure SSH ClientAliveCountMax set to <= 3
+    lineinfile:
+      state: present
+      dest: /etc/ssh/sshd_config
+      regexp: ^ClientAliveCountMax
+      line: ClientAliveCountMax {{ suse15cis_sshd['clientalivecountmax'] }}
+  when:
+  - suse15cis_rule_5_2_16
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.16
+
+- name: SCORED | 5.2.17 | PATCH | Ensure SSH LoginGraceTime is set to one minute or
+    less
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^LoginGraceTime
+    line: LoginGraceTime {{ suse15cis_sshd['logingracetime'] }}
+  when:
+  - suse15cis_rule_5_2_17
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.17
+
+- name: SCORED | 5.2.18 | PATCH | Ensure SSH warning banner is configured
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^Banner
+    line: Banner /etc/issue.net
+  when:
+  - suse15cis_rule_5_2_16
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.2.18
+
+- name: SCORED | 5.2.19 | PATCH | Ensure SSH PAM is enabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^UsePAM
+    line: UsePAM {{ suse15cis_sshd['usepam'] }}
+  when:
+  - suse15cis_rule_5_2_19
+  tags:
+  - level1
+  - patch
+  - rule_5.2.19
+
+- name: SCORED | 5.2.20 | PATCH | Ensure SSH AllowTcpForwarding is disabled
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^AllowTcpForwarding
+    line: AllowTcpForwarding {{ suse15cis_sshd['allowtcpforwarding'] }}
+  when:
+  - suse15cis_rule_5_2_20
+  tags:
+  - level1
+  - patch
+  - rule_5.2.20
+
+- name: SCORED | 5.2.21 | PATCH | Ensure SSH MaxStartups is configured
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^MaxStartups
+    line: MaxStartups {{ suse15cis_sshd['maxstartups'] }}
+  when:
+  - suse15cis_rule_5_2_21
+  tags:
+  - level1
+  - patch
+  - rule_5.2.21
+
+- name: SCORED | 5.2.21 | PATCH | Ensure SSH MaxSessions is configured
+  lineinfile:
+    state: present
+    dest: /etc/ssh/sshd_config
+    regexp: ^MaxSessions
+    line: MaxSessions {{ suse15cis_sshd['maxsessions'] }}
+  when:
+  - suse15cis_rule_5_2_21
+  tags:
+  - level1
+  - patch
+  - rule_5.2.21
+
+- name: SCORED | 5.3.1 | PATCH | Ensure password creation requirements are configured
+  lineinfile:
+    state: present
+    dest: /etc/pam.d/common-password
+    regexp: ^password requisite pam_cracklib.so
+    line: password requisite pam_cracklib.so try_first_pass retry=3 minlen=14 dcredit=-1
+      ucredit=-1 ocredit=-1 lcredit=-1
+  when:
+  - suse15cis_rule_5_3_1
+  tags:
+  - level1
+  - level2
+  - patch
+  - rule_5.3.1
+
+- name: NOTSCORED | 5.3.2| PATCH | Ensure lockout for failed password attempts is
+    configured
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_3_2
+  tags:
+  - level1
+  - patch
+  - rule_5.3.2
+  - notimplemented
+
+- name: NOTSCORED | 5.3.3| PATCH | Ensure password reuse is limited
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_3_3
+  tags:
+  - level1
+  - patch
+  - rule_5.3.3
+  - notimplemented
+
+- name: NOTSCORED | 5.4.1.1| PATCH | Ensure password hashing algorithm is SHA-512
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_4_1_1
+  tags:
+  - level1
+  - patch
+  - rule_5.4.1.1
+  - notimplemented
+
+- name: SCORED | 5.4.1.2 | PATCH | Ensure password expiration is 365 days or less
+  lineinfile:
+    state: present
+    dest: /etc/login.defs
+    regexp: ^PASS_MAX_DAYS
+    line: PASS_MAX_DAYS {{ suse15cis_pass['max_days'] }}
+  when:
+  - suse15cis_rule_5_4_1_2
+  tags:
+  - level1
+  - patch
+  - rule_5.4.1.2
+
+- name: SCORED | 5.4.1.3 | PATCH | Ensure minimum days between password changes is
+    7 or more
+  lineinfile:
+    state: present
+    dest: /etc/login.defs
+    regexp: ^PASS_MIN_DAYS
+    line: PASS_MIN_DAYS {{ suse15cis_pass['min_days'] }}
+  when:
+  - suse15cis_rule_5_4_1_3
+  tags:
+  - level1
+  - patch
+  - rule_5.4.1.3
+
+- name: SCORED | 5.4.1.4 | PATCH | Ensure password expiration warning days is 7 or
+    more
+  lineinfile:
+    state: present
+    dest: /etc/login.defs
+    regexp: ^PASS_WARN_AGE
+    line: PASS_WARN_AGE {{ suse15cis_pass['warn_age'] }}
+  when:
+  - suse15cis_rule_5_4_1_4
+  tags:
+  - level1
+  - patch
+  - rule_5.4.1.4
+
+- name: SCORED | 5.4.1.5 | PATCH | Ensure inactive password lock is 30 days or less
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_4_1_5
+  tags:
+  - level1
+  - patch
+  - rule_5.4.1.5
+  - notimplemented
+
+- name: SCORED | 5.4.1.6 | PATCH | Ensure all users last password change date is in
+    the past
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_4_1_6
+  tags:
+  - level1
+  - patch
+  - rule_5.4.1.6
+  - notimplemented
+
+- name: SCORED | 5.4.2 | PATCH | Ensure system accounts are secured
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_4_2
+  tags:
+  - level1
+  - patch
+  - rule_5.4.2
+  - notimplemented
+
+- name: SCORED | 5.4.3 | PATCH | Ensure default group for the root account is GID
+    0
+  command: usermod -g 0 root
+  changed_when: no
+  failed_when: no
+  when:
+  - suse15cis_rule_5_4_3
+  tags:
+  - level1
+  - patch
+  - rule_5.4.3
+
+- name: SCORED | 5.4.4 | PATCH | Ensure default user shell timeout is configured
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_4_4
+  tags:
+  - level1
+  - patch
+  - rule_5.4.4
+  - notimplemented
+
+- name: SCORED | 5.4.5 | PATCH | Ensure default user umask is configured
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_4_5
+  tags:
+  - level1
+  - patch
+  - rule_5.4.5
+  - notimplemented
+
+- name: SCORED | 5.5 | PATCH | Ensure root login is restricted to system console
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_5
+  tags:
+  - level1
+  - patch
+  - rule_5.5
+  - notimplemented
+
+- name: SCORED | 5.6 | PATCH | Ensure access to the su command is restricted
+  debug:
+    msg: Not implemented
+  when:
+  - suse15cis_rule_5_6
+  tags:
+  - level1
+  - patch
+  - rule_5.6
+  - notimplemented

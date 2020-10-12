@@ -1,0 +1,39 @@
+---
+# Based on ansible-lint config
+extends: default
+
+ignore: |
+  .venv/
+
+rules:
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  colons:
+    max-spaces-after: -1
+    level: error
+  commas:
+    max-spaces-after: -1
+    level: error
+  comments: enable
+  comments-indentation: enable
+  document-start: disable
+  empty-lines:
+    max: 2
+    level: error
+  hyphens:
+    level: error
+  indentation:
+    spaces: 2
+    indent-sequences: false
+  key-duplicates: enable
+  line-length:
+    max: 100
+  new-line-at-end-of-file: disable
+  new-lines:
+    type: unix
+  trailing-spaces: enable
+  truthy: disable

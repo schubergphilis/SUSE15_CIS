@@ -1,0 +1,581 @@
+- name: NOTSCORED | 3.1.1 | PATCH | Disable IPv6
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv6.conf.all.disable_ipv6
+    line: net.ipv6.conf.all.disable_ipv6 = 1
+    create: yes
+  when:
+  - not suse15cis_ipv6_required
+  - suse15cis_rule_3_1_1
+  tags:
+  - level2
+  - patch
+  - rule_3.1.1
+
+- name: NOTSCORED | 3.1.1 | PATCH | Disable IPv6
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv6.conf.default.disable_ipv6
+    line: net.ipv6.conf.default.disable_ipv6 = 1
+    create: yes
+  when:
+  - not suse15cis_ipv6_required
+  - suse15cis_rule_3_1_1
+  tags:
+  - level2
+  - patch
+  - rule_3.1.1
+
+- name: NOTSCORED | 3.1.2 | PATCH | Ensure wireless interfaces are disabled
+  debug:
+    msg: Not implemented
+  tags:
+  - level1
+  - level2
+  - notimplemented
+  - patch
+  - rule_3.1.2
+
+- name: SCORED | 3.2.1 | PATCH | Ensure IP forwarding is disabled
+  sysctl:
+    name: net.ipv4.ip_forward
+    value: '0'
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_2_1
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.2.1
+
+- name: SCORED | 3.2.2 | PATCH | Ensure packet redirect sending is disabled
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.conf.all.send_redirects, value: 0}
+  - {name: net.ipv4.conf.default.send_redirects, value: 0}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_2_2
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.2.2
+
+- name: NOTSCORED | 3.2.2 | PATCH | Ensure packet redirect sending is disabled
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.all.send_redirects
+    line: net.ipv4.conf.all.send_redirects = 0
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_2_2
+  tags:
+  - level2
+  - patch
+  - rule_3.2.2
+
+- name: NOTSCORED | 3.2.2 | PATCH | Ensure packet redirect sending is disabled
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.send_redirects
+    line: net.ipv4.conf.default.send_redirects = 0
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_2_2
+  tags:
+  - level2
+  - sysctl
+  - patch
+  - rule_3.2.2
+
+
+- name: NOTSCORED | 3.3.1 | PATCH | Ensure source routed packets are not accepted
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.accept_source_route
+    line: net.ipv4.conf.default.accept_source_route = 0
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_1
+  tags:
+  - level2
+  - sysctl
+  - patch
+  - rule_3.3.1
+
+- name: SCORED | 3.3.1 | PATCH | Ensure source routed packets are not accepted
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.conf.all.accept_source_route, value: 0}
+  - {name: net.ipv4.conf.default.accept_source_route, value: 0}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_1
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.1
+
+
+- name: NOTSCORED | 3.3.2 | PATCH | Ensure ICMP redirects are not accepted | file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.accept_redirects
+    line: net.ipv4.conf.default.accept_redirects = 0
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_2
+  tags:
+  - level2
+  - sysctl
+  - patch
+  - rule_3.3.2
+
+- name: SCORED | 3.3.2 | PATCH | Ensure ICMP redirects are not accepted | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.conf.all.accept_redirects, value: 0}
+  - {name: net.ipv4.conf.default.accept_redirects, value: 0}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_2
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.2
+
+
+- name: NOTSCORED | 3.3.3 | PATCH | Ensure secure ICMP redirects are not accepted
+    | file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.secure_redirects
+    line: net.ipv4.conf.default.secure_redirects = 0
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_3
+  tags:
+  - level2
+  - sysctl
+  - patch
+  - rule_3.3.3
+
+- name: SCORED | 3.3.3 | PATCH | Ensure secure ICMP redirects are not accepted | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.conf.all.secure_redirects, value: 0}
+  - {name: net.ipv4.conf.default.secure_redirects, value: 0}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_3
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.3
+
+- name: NOTSCORED | 3.3.4 | PATCH | Ensure suspicous packets are logged| file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.log_martians
+    line: net.ipv4.conf.default.log_martians = 1
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_4
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.4
+
+- name: SCORED | 3.3.4 | PATCH | Ensure suspicous packets are logged | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.conf.all.log_martians, value: 1}
+  - {name: net.ipv4.conf.default.log_martians, value: 1}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_4
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.4
+
+
+- name: NOTSCORED | 3.3.5 | PATCH | Ensure broadcast ICMP requests are ignored | file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.icmp_echo_ignore_broadcasts
+    line: net.ipv4.icmp_echo_ignore_broadcasts = 1
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_5
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.5
+
+- name: SCORED | 3.3.5 | PATCH | Ensure broadcast ICMP requests are ignored | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.icmp_echo_ignore_broadcasts, value: 1}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_5
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.5
+
+
+- name: NOTSCORED | 3.3.6 | PATCH | Ensure bogus ICMP requests are ignored | file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.icmp_ignore_bogus_error_responses
+    line: net.ipv4.icmp_ignore_bogus_error_responses = 1
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_6
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.6
+
+- name: SCORED | 3.3.6 | PATCH | Ensure bogus ICMP requests are ignored | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.icmp_ignore_bogus_error_responses, value: 1}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_6
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.6
+
+
+- name: NOTSCORED | 3.3.7 | PATCH | Ensure Reverse Path Filtering is enabled | file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.rp_filter
+    line: net.ipv4.conf.default.rp_filter = 1
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_7
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.7
+
+- name: SCORED | 3.3.7 | PATCH | Ensure Reverse Path Filtering is enabled | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv4.conf.default.rp_filter, value: 1}
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_7
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.7
+
+
+- name: NOTSCORED | 3.3.8 | PATCH | Ensure TCP SYN Cookies is enabled | file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.tcp_syncookies
+    line: net.ipv4.tcp_syncookies = 1
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_8
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.8
+
+- name: SCORED | 3.3.8 | PATCH | Ensure TCP SYN Cookies is enabled | sysctl
+  sysctl:
+    name: net.ipv4.tcp_syncookies
+    value: '1'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  notify:
+  - sysctl flush ipv4 route table
+  when:
+  - suse15cis_rule_3_3_8
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.8
+
+
+- name: NOTSCORED | 3.3.9 | PATCH | Ensure IPv6 router advertisements are not accepted|
+    file
+  lineinfile:
+    dest: /etc/sysctl.d/CIS.conf
+    regexp: ^(#)?net.ipv4.conf.default.accept_ra
+    line: net.ipv4.conf.default.accept_ra = 0
+    create: yes
+  when:
+  - not suse15cis_is_router
+  - suse15cis_rule_3_3_9
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.9
+
+- name: SCORED | 3.3.9 | PATCH | Ensure IPv6 router advertisements are not accepted
+    | sysctl
+  sysctl:
+    name: '{{ item.name }}'
+    value: '{{ item.value }}'
+    sysctl_set: yes
+    state: present
+    reload: yes
+    ignoreerrors: yes
+  with_items:
+  - {name: net.ipv6.conf.all.accept_ra, value: 0}
+  - {name: net.ipv6.conf.default.accept_ra, value: 0}
+  notify:
+  - sysctl flush ipv6 route table
+  when:
+  - suse15cis_rule_3_3_9
+  tags:
+  - level1
+  - sysctl
+  - patch
+  - rule_3.3.9
+
+- name: NOTSCORED | 3.4.1 | PATCH | Ensure DCCP is disabled
+  lineinfile:
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: ^(#)?install dccp(\s|$)
+    line: install dccp /bin/true
+    create: yes
+  when:
+  - suse15cis_rule_3_4_1
+  tags:
+  - level1
+  - patch
+  - rule_3.4.1
+
+- name: NOTSCORED | 3.4.1 | PATCH | Ensure SCTP is disabled
+  lineinfile:
+    dest: /etc/modprobe.d/CIS.conf
+    regexp: ^(#)?install sctp(\s|$)
+    line: install sctp /bin/true
+    create: yes
+  when:
+  - suse15cis_rule_3_4_2
+  tags:
+  - level1
+  - patch
+  - rule_3.4.2
+
+- name: SCORED | 3.5.1.1 | PATCH | Configure firewalld | CUSTOM
+  package:
+    name: firewalld
+    state: present
+  when:
+  - suse15cis_firewall == "firewalld"
+  - suse15cis_rule_3_5_1_1
+
+  tags:
+  - level1
+  - patch
+  - rule_3.5.1.1
+
+
+- name: SCORED | 3.5.1.1 | PATCH | Configure iptables | CUSTOM
+  package:
+    name: iptables
+    state: present
+  when:
+  - suse15cis_firewall == "iptables"
+  - suse15cis_rule_3_5_1_1
+
+  tags:
+  - level1
+  - patch
+  - rule_3.5.1.1
+
+- name: SCORED | 3.5.1.2 | PATCH | Ensure nftables is not installed or stopped and
+    masked| CUSTOM
+  service:
+    name: nftables
+    state: stopped
+  when:
+  - suse15cis_rule_3_5_1_2
+  - "'nftables' in services"
+  tags:
+  - level1
+  - patch
+  - rule_3.5.1.2
+
+- name: SCORED | 3.5.1.2 | PATCH | Ensure nftables is not installed or stopped and
+    masked | CUSTOM
+  package:
+    name: nftables
+    state: absent
+  when:
+  - suse15cis_rule_3_5_1_2
+
+  tags:
+  - level1
+  - patch
+  - rule_3.5.1.2
+
+- name: SCORED | 3.5.1.3 | PATCH | Ensure firewalld service is enabled and running
+    | CUSTOM
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+  when:
+  - suse15cis_firewall == "firewalld"
+  - suse15cis_rule_3_5_1_3
+  tags:
+  - level1
+  - patch
+  - rule_3.5.1.3
+
+
+- name: SCORED | 3.5.1.4 | PATCH | Ensure default deny firewall policy
+  firewalld:
+    state: enabled
+    zone: drop
+    permanent: true
+  when:
+  - suse15cis_firewall == "firewalld"
+  - suse15cis_rule_3_5_1_4
+  tags:
+  - level1
+  - patch
+  - rule_3.5.1.4
+
+- name: NOTSCORED | 3.5.1.5 | PATCH | Ensure network interfaces are assigned to appropriate
+    zone
+  debug:
+    msg: Not implemented
+  tags:
+  - level1
+  - notimplemented
+  - patch
+  - rule_3.5.1.5
+
+- name: NOTSCORED | 3.5.1.5 | PATCH | Ensure unnecessary services and ports are not
+    accepted
+  debug:
+    msg: Not implemented
+  tags:
+  - level1
+  - notimplemented
+  - patch
+  - rule_3.5.1.6
+
+- name: NOTSCORED | 3.5.2 | PATCH | Configure nftables
+  debug:
+    msg: Not implemented
+  tags:
+  - level1
+  - notimplemented
+  - patch
+  - rule_3.5.1.6
+
+
+- name: NOTSCORED | 3.5.3 | PATCH | Configure iptables
+  debug:
+    msg: Not implemented
+  tags:
+  - level1
+  - notimplemented
+  - patch
+  - rule_3.5.1.6

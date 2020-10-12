@@ -1,0 +1,4 @@
+---
+suse15cis_skip_for_travis: true
+suse15cis_skip_for_local_docker: true
+suse15cis_development: false

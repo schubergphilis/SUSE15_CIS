@@ -1,0 +1,30 @@
+- name: PRELIM | pre-install python3-rpm   # needed for package_facts
+  package:
+    name: python3-rpm
+    state: present
+  tags:
+  - always
+
+- name: PRELIM - Populate installed packages facts
+  package_facts:
+    manager: rpm
+  no_log: true
+  tags:
+  - always
+
+- name: PRELIM - check /boot/grub2/grub.cfg
+  stat:
+    path: /boot/grub2/grub.cfg
+  register: grub_cfg
+  tags:
+  - level1
+  - scored
+  - grub
+  - patch
+  - always
+
+- name: PRELIM | Populate service facts
+  service_facts:
+  no_log: true
+  tags:
+  - always

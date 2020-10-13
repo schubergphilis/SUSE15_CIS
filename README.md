@@ -1,4 +1,4 @@
-Linux CIS - Supports SUSE15, openSUSE42.3
+Linux CIS - Supports SUSE15, openSUSE42.3 ![](https://travis-ci.org/schubergphilis/SUSE15-CIS.svg?branch=main)
 ================
 Inspired on the exellent work done by the MindPointGroup.
 

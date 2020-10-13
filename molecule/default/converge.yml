@@ -13,8 +13,8 @@
 
   tasks:
 
-  - name: MOLECULE | Include role SUSE15-CIS
+  - name: MOLECULE | Include role SUSE15_CIS
     include_role:
-      name: SUSE15-CIS
+      name: SUSE15_CIS
     tags:
     - always

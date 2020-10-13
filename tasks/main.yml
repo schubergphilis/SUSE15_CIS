@@ -1,4 +1,4 @@
-# tasks file for schubergphilis.SUSE15-CIS
+# tasks file for schubergphilis.SUSE15_CIS
 - name: MAIN | show OS version
   debug:
     msg: OS VERSION - {{ ansible_os_family }} - {{ ansible_distribution_major_version

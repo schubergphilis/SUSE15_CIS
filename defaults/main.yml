@@ -1,6 +1,6 @@
 # suse15cis_service_status: ['loaded','running...']
 
-# defaults file for SUSE15-CIS
+# defaults file for SUSE15_CIS
 suse15cis_skip_for_travis: false
 suse15cis_skip_for_local_docker: false
 

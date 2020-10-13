@@ -1,4 +1,4 @@
-Linux CIS - Supports SUSE15, openSUSE42.3 ![](https://travis-ci.org/schubergphilis/SUSE15-CIS.svg?branch=main)
+Linux CIS - Supports SUSE15, openSUSE42.3 ![](https://travis-ci.org/schubergphilis/SUSE15_CIS.svg?branch=main)
 ================
 Inspired on the exellent work done by the MindPointGroup.
 
@@ -17,7 +17,7 @@ If you want to install this via the `ansible-galaxy` command you'll need to run 
 With this in the file requirements.yml:
 
 ```
-- src: https://github.com/schubergphilis/SUSE15-CIS.git
+- src: https://github.com/schubergphilis/SUSE15_CIS.git
 ```
 
 Based on [ CIS SUSE Linux Enterprise 15 Benchmark v1.0.0 - 06-30-2020 ](https://community.cisecurity.org/collab/public/index.php).
@@ -154,7 +154,7 @@ Ansible > 2.9
 Example Playbook
 -------------------------
 
-This sample playbook should be run in a folder that is above the main SUSE15-CIS / SUSE15-CIS-devel folder.
+This sample playbook should be run in a folder that is above the main SUSE15_CIS folder.
 
 ```
 - name: Harden Server
@@ -162,7 +162,7 @@ This sample playbook should be run in a folder that is above the main SUSE15-CIS
   become: yes
 
   roles:
-    - SUSE15-CIS
+    - SUSE15_CIS
 ```
 
 Tags

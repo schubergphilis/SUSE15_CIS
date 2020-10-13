@@ -2,4 +2,4 @@
   # groups: docker
   remote_user: root
   roles:
-  - SUSE15-CIS
+  - SUSE15_CIS

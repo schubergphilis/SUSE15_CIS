@@ -1,7 +1,7 @@
 galaxy_info:
   author: Anton Opgenoort
   description: Ansible role to apply SUSE 15 CIS Baseline
-  name: suse15-cis
+  name: suse15_cis
   company: Schuberg Philis
 
   # If the issue tracker for your role is not on github, uncomment the

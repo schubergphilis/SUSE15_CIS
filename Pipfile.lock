@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c973b8a4182cc203da9a2320b098b5a4436ba93439acf19f07114b5ed7bb73a7"
+            "sha256": "c7071c0a79fb0a95f7a15c8b217f05cd74c348b393815b588fc746f60a9e0191"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -140,10 +140,9 @@
         },
         "colorama": {
             "hashes": [
-                "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff",
-                "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"
+                "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"
             ],
-            "version": "==0.4.3"
+            "version": "==0.4.4"
         },
         "cookiecutter": {
             "hashes": [
@@ -181,11 +180,11 @@
         },
         "docker": {
             "hashes": [
-                "sha256:431a268f2caf85aa30613f9642da274c62f6ee8bae7d70d968e01529f7d6af93",
-                "sha256:ba118607b0ba6bfc1b236ec32019a355c47b5d012d01d976467d4692ef443929"
+                "sha256:03a46400c4080cb6f7aa997f881ddd84fef855499ece219d75fbdb53289c17ab",
+                "sha256:26eebadce7e298f55b76a88c4f8802476c5eaddbdbe38dbc6cce8781c47c9b54"
             ],
             "index": "pypi",
-            "version": "==4.3"
+            "version": "==4.2.2"
         },
         "fasteners": {
             "hashes": [

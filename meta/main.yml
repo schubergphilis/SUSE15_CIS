@@ -1,6 +1,7 @@
 galaxy_info:
   author: Anton Opgenoort
-  description: Mission Critical Engineer
+  description: Ansible role to apply SUSE 15 CIS Baseline
+  name: suse15-cis
   company: Schuberg Philis
 
   # If the issue tracker for your role is not on github, uncomment the
@@ -22,9 +23,9 @@ galaxy_info:
   # min_ansible_container_version:
 
   platforms:
-  - name: Opensuse
+  - name: opensuse
     versions:
-    - 15
+    - 15.2
 
   galaxy_tags:
   - suse

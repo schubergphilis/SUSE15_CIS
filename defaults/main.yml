@@ -21,11 +21,6 @@ suse15cis_selinux_disable: false
 suse15cis_rule_1_1_1_1: true
 suse15cis_rule_1_1_1_2: true
 suse15cis_rule_1_1_1_3: true
-suse15cis_rule_1_1_1_4: true
-suse15cis_rule_1_1_1_5: true
-suse15cis_rule_1_1_1_6: true
-suse15cis_rule_1_1_1_7: true
-suse15cis_rule_1_1_1_8: true
 suse15cis_rule_1_1_2: true
 suse15cis_rule_1_1_3: true
 suse15cis_rule_1_1_4: true
@@ -51,14 +46,11 @@ suse15cis_rule_1_1_23: true
 suse15cis_rule_1_2_1: true
 suse15cis_rule_1_2_2: true
 suse15cis_rule_1_2_3: true
-suse15cis_rule_1_2_4: true
-suse15cis_rule_1_2_5: true
 suse15cis_rule_1_3_1: true
 suse15cis_rule_1_3_2: true
 suse15cis_rule_1_3_3: true
 suse15cis_rule_1_4_1: true
 suse15cis_rule_1_4_2: true
-suse15cis_rule_1_4_3: true
 suse15cis_rule_1_5_1: true
 suse15cis_rule_1_5_2: true
 suse15cis_rule_1_5_3: true
@@ -66,40 +58,21 @@ suse15cis_rule_1_5_4: true
 suse15cis_rule_1_6_1: true
 suse15cis_rule_1_6_2: true
 suse15cis_rule_1_6_3: true
-suse15cis_rule_1_6_2_1: true
-suse15cis_rule_1_6_2_2: true
-suse15cis_rule_1_6_2_3: true
 suse15cis_rule_1_7_1_1: true
 suse15cis_rule_1_7_1_2: true
 suse15cis_rule_1_7_1_3: true
 suse15cis_rule_1_7_1_4: true
-suse15cis_rule_1_7_1_5: true
-suse15cis_rule_1_7_1_6: true
-suse15cis_rule_1_7_2: true
 suse15cis_rule_1_8_1_1: true
 suse15cis_rule_1_8_1_2: true
 suse15cis_rule_1_8_1_3: true
 suse15cis_rule_1_8_1_4: true
 suse15cis_rule_1_8_1_5: true
 suse15cis_rule_1_8_1_6: true
-suse15cis_rule_1_8_1_7: true
 suse15cis_rule_1_9: true
 suse15cis_rule_1_10: true
-suse15cis_rule_1_11: true
-suse15cis_rule_1_12: true
 
 # Section 2 rules
 suse15cis_rule_2_1_1: true
-suse15cis_rule_2_1_2: true
-suse15cis_rule_2_1_3: true
-suse15cis_rule_2_1_4: true
-suse15cis_rule_2_1_5: true
-suse15cis_rule_2_1_6: true
-suse15cis_rule_2_1_7: true
-suse15cis_rule_2_1_8: true
-suse15cis_rule_2_1_9: true
-suse15cis_rule_2_1_10: true
-suse15cis_rule_2_1_11: true
 suse15cis_rule_2_2_1_1: true
 suse15cis_rule_2_2_1_2: true
 suse15cis_rule_2_2_1_3: true
@@ -121,8 +94,6 @@ suse15cis_rule_2_2_16: true
 suse15cis_rule_2_2_17: true
 suse15cis_rule_2_2_18: true
 suse15cis_rule_2_2_19: true
-suse15cis_rule_2_2_20: true
-suse15cis_rule_2_2_21: true
 suse15cis_rule_2_3_1: true
 suse15cis_rule_2_3_2: true
 suse15cis_rule_2_3_3: true
@@ -131,15 +102,8 @@ suse15cis_rule_2_3_5: true
 
 # Section 3 rules
 suse15cis_rule_3_1_1: true
-suse15cis_rule_3_1_2: true
 suse15cis_rule_3_2_1: true
 suse15cis_rule_3_2_2: true
-suse15cis_rule_3_2_3: true
-suse15cis_rule_3_2_4: true
-suse15cis_rule_3_2_5: true
-suse15cis_rule_3_2_6: true
-suse15cis_rule_3_2_7: true
-suse15cis_rule_3_2_8: true
 suse15cis_rule_3_3_1: true
 suse15cis_rule_3_3_2: true
 suse15cis_rule_3_3_3: true
@@ -151,19 +115,10 @@ suse15cis_rule_3_3_8: true
 suse15cis_rule_3_3_9: true
 suse15cis_rule_3_4_1: true
 suse15cis_rule_3_4_2: true
-suse15cis_rule_3_4_3: true
-suse15cis_rule_3_4_4: true
-suse15cis_rule_3_4_5: true
 suse15cis_rule_3_5_1_1: true
 suse15cis_rule_3_5_1_2: true
 suse15cis_rule_3_5_1_3: true
 suse15cis_rule_3_5_1_4: true
-suse15cis_rule_3_6: true
-suse15cis_rule_3_6_1: true
-suse15cis_rule_3_6_2: true
-suse15cis_rule_3_6_3: true
-suse15cis_rule_3_6_4: true
-suse15cis_rule_3_6_5: true
 
 # Section 4 rules
 suse15cis_rule_4_1_1_1: true
@@ -189,7 +144,6 @@ suse15cis_rule_4_1_14: true
 suse15cis_rule_4_1_15: true
 suse15cis_rule_4_1_16: true
 suse15cis_rule_4_1_17: true
-suse15cis_rule_4_1_18: true
 suse15cis_rule_4_2_3: true
 suse15cis_rule_4_2_1_1: true
 suse15cis_rule_4_2_1_2: true
@@ -197,11 +151,6 @@ suse15cis_rule_4_2_1_3: true
 suse15cis_rule_4_2_1_4: true
 suse15cis_rule_4_2_1_5: true
 suse15cis_rule_4_2_1_6: true
-suse15cis_rule_4_2_2_1: true
-suse15cis_rule_4_2_2_2: true
-suse15cis_rule_4_2_2_3: true
-suse15cis_rule_4_2_2_4: true
-suse15cis_rule_4_2_2_5: true
 suse15cis_rule_4_2_4: true
 
 # Section 5 rules
@@ -235,10 +184,10 @@ suse15cis_rule_5_2_18: true
 suse15cis_rule_5_2_19: true
 suse15cis_rule_5_2_20: true
 suse15cis_rule_5_2_21: true
+suse15cis_rule_5_2_22: true
 suse15cis_rule_5_3_1: true
 suse15cis_rule_5_3_2: true
 suse15cis_rule_5_3_3: true
-suse15cis_rule_5_3_4: true
 suse15cis_rule_5_4_1_1: true
 suse15cis_rule_5_4_1_2: true
 suse15cis_rule_5_4_1_3: true
@@ -249,13 +198,8 @@ suse15cis_rule_5_4_2: true
 suse15cis_rule_5_4_3: true
 suse15cis_rule_5_4_4: true
 suse15cis_rule_5_4_5: true
-suse15cis_rule_5_4_6: true
-suse15cis_rule_5_4_7: true
-suse15cis_rule_5_4_8: true
 suse15cis_rule_5_5: true
 suse15cis_rule_5_6: true
-suse15cis_rule_5_7: true
-suse15cis_rule_5_8: true
 # Section 6 rules
 suse15cis_rule_6_1_1: true
 suse15cis_rule_6_1_2: true
@@ -269,8 +213,6 @@ suse15cis_rule_6_1_9: true
 suse15cis_rule_6_1_10: true
 suse15cis_rule_6_1_11: true
 suse15cis_rule_6_1_12: true
-suse15cis_rule_6_1_13: true
-suse15cis_rule_6_1_14: true
 suse15cis_rule_6_2_1: true
 suse15cis_rule_6_2_2: true
 suse15cis_rule_6_2_3: true
@@ -289,7 +231,6 @@ suse15cis_rule_6_2_15: true
 suse15cis_rule_6_2_16: true
 suse15cis_rule_6_2_17: true
 suse15cis_rule_6_2_18: true
-suse15cis_rule_6_2_19: true
 
 # Service configuration booleans set true to keep service
 suse15cis_avahi_server: false

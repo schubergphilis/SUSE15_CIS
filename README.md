@@ -104,10 +104,6 @@ suse15cis_aide_cron:
   aide_weekday: '*'  
 ```
 
-##### SELinux policy
-`suse15cis_selinux_pol: targeted` 
-
-
 ##### Set to 'true' if X Windows is needed in your environment
 `suse15cis_xwindows_required: no` 
 

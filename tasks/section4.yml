@@ -501,7 +501,7 @@
   debug:
     msg: Not implemented
   when:
-  - suse15cis_rule_4_2_1_6
+  - suse15cis_rule_4_2_2
   tags:
   - level1
   - patch

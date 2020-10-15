@@ -127,14 +127,7 @@ suse15cis_time_synchronization_servers:
     - 2.pool.ntp.org
     - 3.pool.ntp.org  
 ```  
-  
-##### 3.4.2 | PATCH | Ensure /etc/hosts.allow is configured
-```
-suse15cis_host_allow:
-  - "10.0.0.0/255.0.0.0"  
-  - "172.16.0.0/255.240.0.0"  
-  - "192.168.0.0/255.255.0.0"    
-```  
+
 
 ```
 suse15cis_firewall: firewalld

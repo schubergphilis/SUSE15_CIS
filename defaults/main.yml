@@ -54,7 +54,6 @@ suse15cis_rule_1_4_2: true
 suse15cis_rule_1_5_1: true
 suse15cis_rule_1_5_2: true
 suse15cis_rule_1_5_3: true
-suse15cis_rule_1_5_4: true
 suse15cis_rule_1_6_1: true
 suse15cis_rule_1_6_2: true
 suse15cis_rule_1_6_3: true
@@ -144,13 +143,14 @@ suse15cis_rule_4_1_14: true
 suse15cis_rule_4_1_15: true
 suse15cis_rule_4_1_16: true
 suse15cis_rule_4_1_17: true
-suse15cis_rule_4_2_3: true
 suse15cis_rule_4_2_1_1: true
 suse15cis_rule_4_2_1_2: true
 suse15cis_rule_4_2_1_3: true
 suse15cis_rule_4_2_1_4: true
 suse15cis_rule_4_2_1_5: true
 suse15cis_rule_4_2_1_6: true
+suse15cis_rule_4_2_2: true
+suse15cis_rule_4_2_3: true
 suse15cis_rule_4_2_4: true
 
 # Section 5 rules

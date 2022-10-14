@@ -671,15 +671,19 @@
   - notimplemented
 
 - name: SCORED | 5.5 | PATCH | Ensure root login is restricted to system console
-  debug:
-    msg: Not implemented
+  copy:
+    src: etc/securetty
+    dest: /etc/securetty
+    owner: root
+    group: root
+    mode: 0600
   when:
   - suse15cis_rule_5_5
   tags:
   - level1
   - patch
   - rule_5.5
-  - notimplemented
+
 
 - name: SCORED | 5.6 | PATCH | Ensure access to the su command is restricted
   debug:

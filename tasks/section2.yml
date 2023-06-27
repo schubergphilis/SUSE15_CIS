@@ -45,7 +45,8 @@
     enabled: no
   when:
   - suse15cis_time_synchronization == "chrony"
-  - "'ntpd.service' in services"
+  - ansible_facts.services['ntpd.service'] is defined
+  - ansible_facts.services['ntpd.service']["status"] != "not-found"
   - suse15cis_rule_2_2_1_1
   tags:
   - level1
@@ -61,7 +62,8 @@
   ignore_errors: yes
   when:
   - suse15cis_time_synchronization != "chrony"
-  - "'chronyd.service' in services"
+  - ansible_facts.services['chronyd.service'] is defined
+  - ansible_facts.services['chronyd.service']["status"] != "not-found"
   - suse15cis_rule_2_2_1_1
   tags:
   - level1

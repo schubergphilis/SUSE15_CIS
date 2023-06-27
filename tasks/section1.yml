@@ -71,6 +71,7 @@
   - vfat
   when:
   - suse15cis_rule_1_1_1_3
+  - not booted_with_efi
   tags:
   - level1
   - scored
@@ -89,6 +90,7 @@
   - vfat
   when:
   - suse15cis_rule_1_1_1_3
+  - not booted_with_efi
   - not suse15cis_skip_for_travis
   - not suse15cis_skip_for_local_docker
   tags:

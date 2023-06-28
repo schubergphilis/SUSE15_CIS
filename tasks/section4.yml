@@ -137,15 +137,12 @@
   - rule_4.1.2.
 
 - name: NOTSCORED | 4.1.2.4 | PATCH | Ensure audit_backlog_limit is sufficient
-  lineinfile:
-    dest: /etc/default/grub
-    regexp: ^audit_backlog_limit( |=)
-    line: audit_backlog_limit = 8192
-    state: present
+  debug:
+    msg: Not implemented
   when:
   - suse15cis_rule_4_1_2_4
-  - grub_cfg.stat.exists
-  notify: generate new grub config
+  notes: >-
+    Note, that currently the value is hardcoded to 8192
   tags:
   - level2
   - auditd
